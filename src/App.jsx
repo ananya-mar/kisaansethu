@@ -11,6 +11,7 @@ import LearningHub from './components/LearningHub';
 import Chatbot from './components/Chatbot';
 import SchemeFinder from './components/SchemeFinder';
 import Feedback from './components/Feedback';
+import PestDetection from './components/PestDetection';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import Navigation from './components/Navigation';
@@ -65,11 +66,8 @@ const VoiceControl = ({ navigate, toggleDarkMode, toggleLanguage, onVoiceInput }
     };
 
     rec.onerror = (event) => {
-      if (event.error === 'no-speech') {
-        setStatusMessage('No speech detected.');
-      } else {
-        setStatusMessage('Error occurred.');
-      }
+      if (event.error === 'no-speech') setStatusMessage('No speech detected.');
+      else setStatusMessage('Error occurred.');
       setTimeout(() => setStatusMessage(''), 3000);
     };
 
@@ -83,7 +81,6 @@ const VoiceControl = ({ navigate, toggleDarkMode, toggleLanguage, onVoiceInput }
     };
 
     setRecognition(rec);
-
     return () => rec.stop();
   }, []);
 
@@ -97,6 +94,7 @@ const VoiceControl = ({ navigate, toggleDarkMode, toggleLanguage, onVoiceInput }
       'learning hub': '/learning-hub',
       chatbot: '/chatbot',
       'scheme finder': '/scheme-finder',
+      'pest detection': '/pest-detection',
       feedback: '/feedback',
     };
 
@@ -107,12 +105,13 @@ const VoiceControl = ({ navigate, toggleDarkMode, toggleLanguage, onVoiceInput }
     ) {
       const page = command.replace(/^(go to|open|show)\s+/, '');
       if (pageMap[page]) navigate(pageMap[page]);
+      else if (onVoiceInput) onVoiceInput(command); // fallback to input
     } else if (command.includes('dark mode')) {
       toggleDarkMode();
     } else if (command.includes('switch language') || command.includes('change language')) {
       toggleLanguage();
     } else {
-      // Pass remaining text as chat input
+      // send remaining text to voice input
       if (onVoiceInput) onVoiceInput(command);
     }
   };
@@ -223,10 +222,7 @@ function AppContent() {
       </header>
 
       <div className="flex">
-        <Navigation
-          mobileMenuOpen={mobileMenuOpen}
-          setMobileMenuOpen={setMobileMenuOpen}
-        />
+        <Navigation mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
         <main className="flex-1 p-6">
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -237,6 +233,7 @@ function AppContent() {
             <Route path="/learning-hub" element={<LearningHub />} />
             <Route path="/chatbot" element={<Chatbot />} />
             <Route path="/scheme-finder" element={<SchemeFinder />} />
+            <Route path="/pest-detection" element={<PestDetection />} />
             <Route path="/feedback" element={<Feedback />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

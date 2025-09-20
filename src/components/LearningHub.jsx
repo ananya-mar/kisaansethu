@@ -1,28 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, Play, FileText, Search } from 'lucide-react';
-
-// Mock language hook (replace with your actual translation hook)
-const useLanguage = () => ({
-  t: (key) => {
-    const translations = {
-      allTopics: 'All Topics',
-      cropManagement: 'Crop Management',
-      soilHealth: 'Soil Health',
-      irrigation: 'Irrigation',
-      pestControlCategory: 'Pest Control',
-      organicFarmingCategory: 'Organic Farming',
-      min: 'min',
-      minRead: 'min read',
-      learningHub: 'Learning Hub',
-      expandKnowledge: 'Expand your knowledge with our curated articles and videos.',
-      searchArticles: 'Search articles & videos...',
-      watch: 'Watch on YouTube',
-      read: 'Read Article',
-      noContentFound: 'No content found for your search.',
-    };
-    return translations[key] || key;
-  },
-});
+import { useLanguage } from '../context/LanguageContext';
 
 const LearningHub = () => {
   const { t } = useLanguage();
@@ -41,58 +19,58 @@ const LearningHub = () => {
   const learningContent = [
     {
       id: 1,
-      title: 'Modern Wheat Cultivation Techniques',
+      title: t('modernWheatTitle'),
       type: 'video',
       category: 'crops',
       duration: `11 ${t('min')}`,
-      description: 'A step-by-step guide to modern wheat farming, from seed to a bountiful harvest.',
+      description: t('modernWheatDesc'),
       videoId: 'xVO9bjuhB58'
     },
     {
       id: 2,
-      title: 'Soil Testing and Nutrient Management',
+      title: t('soilTestingTitle'),
       type: 'article',
       category: 'soil',
       readTime: `8 ${t('minRead')}`,
-      description: 'A guide from UMass Amherst on soil testing for nutrient management and crop optimization.',
+      description: t('soilTestingDesc'),
       thumbnail: 'https://images.unsplash.com/photo-1492496913980-501348b61469?q=80&w=600&auto=format&fit=crop',
       articleUrl: 'https://ag.umass.edu/greenhouse-floriculture/greenhouse-best-management-practices-bmp-manual/soil-testing'
     },
     {
       id: 3,
-      title: 'Drip Irrigation Setup Guide',
+      title: t('dripIrrigationTitle'),
       type: 'video',
       category: 'irrigation',
       duration: `18 ${t('min')}`,
-      description: 'A beginner\'s step-by-step DIY guide on how to design and set up a drip irrigation system.',
+      description: t('dripIrrigationDesc'),
       videoId: 'FJF49lb23b8'
     },
     {
       id: 4,
-      title: 'Integrated Pest Management (IPM)',
+      title: t('ipmTitle'),
       type: 'article',
       category: 'pests',
       readTime: `12 ${t('minRead')}`,
-      description: 'An overview of IPM from the UN Food and Agriculture Organization to protect crops sustainably.',
+      description: t('ipmDesc'),
       thumbnail: 'https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=600&auto=format&fit=crop',
       articleUrl: 'https://www.fao.org/pest-and-pesticide-management/ipm/integrated-pest-management/en/'
     },
     {
       id: 5,
-      title: 'The Organic Certification Process',
+      title: t('organicCertTitle'),
       type: 'video',
       category: 'organic',
       duration: `5 ${t('min')}`,
-      description: 'A clear explanation of the official steps required to get your farm certified as organic.',
+      description: t('organicCertDesc'),
       videoId: '0IJX1rCgSYg'
     },
     {
       id: 6,
-      title: 'Crop Rotation Benefits and Planning',
+      title: t('cropRotationTitle'),
       type: 'article',
       category: 'crops',
       readTime: `10 ${t('minRead')}`,
-      description: 'A comprehensive guide from the Rodale Institute on the benefits and practices of crop rotation.',
+      description: t('cropRotationDesc'),
       thumbnail: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=600&auto=format&fit=crop',
       articleUrl: 'https://rodaleinstitute.org/why-organic/organic-farming-practices/crop-rotations/'
     }
@@ -114,7 +92,7 @@ const LearningHub = () => {
       <div className="flex items-center">
         <BookOpen className="h-8 w-8 text-orange-600 mr-3" />
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('learningHub')}</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('learningHubTitle')}</h1>
           <p className="text-gray-600 dark:text-gray-300">
             {t('expandKnowledge')}
           </p>

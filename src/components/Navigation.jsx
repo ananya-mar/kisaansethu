@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   Home, User, Sprout, Cloud, TrendingUp, BookOpen, 
-  MessageCircle, Search, MessageSquare, X 
+  MessageCircle, Search, MessageSquare, Bug, X 
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -18,6 +18,7 @@ const Navigation = ({ mobileMenuOpen, setMobileMenuOpen }) => {
     { path: '/learning-hub', icon: BookOpen, label: t('learningHub') },
     { path: '/chatbot', icon: MessageCircle, label: t('chatbot') },
     { path: '/scheme-finder', icon: Search, label: t('schemeFinder') },
+    { path: '/pest-detection', icon: Bug, label: t('pestDetection') },
     { path: '/feedback', icon: MessageSquare, label: t('feedback') }
   ];
 
